@@ -8,18 +8,52 @@
  */
 package by.epam.javatraining.bialiatskaya.tasks.mainTask04;
 
+import by.epam.javatraining.bialiatskaya.tasks.mainTask04.actions.FillTravelCollection;
 import org.apache.log4j.Logger;
+
+import java.io.File;
+import java.util.Scanner;
 
 public class MainTask04 {
 
     private static final Logger log = Logger.getLogger(MainTask04.class);
 
+    private static void chooseAndRun() {
+        Scanner reader = new Scanner(System.in).useDelimiter("\n");
+        int inputNumber;
+
+        try {
+            do {
+                System.out.println("WELCOME!");
+                System.out.println("We'll do our best to find the most suitable tour for you!");
+                System.out.println("1. Fill the collection, 0. Exit");
+                inputNumber = reader.nextInt();
+
+                switch (inputNumber) {
+                    case 1: {
+                        File file = new File("c:\\Users\\user\\IdeaProjects\\Training\\src\\by\\epam\\javatraining\\bialiatskaya\\tasks\\mainTask04\\Data.txt");
+                        FillTravelCollection fillTravelCollection = new FillTravelCollection(file);
+                        break;
+                    }
+                    case 0: {
+                        System.out.println("You are welcome, bye!");
+                        break;
+                    }
+                    default: {
+                        System.out.println("Bad number, try again later.");
+                        break;
+                    }
+                }
+            } while (inputNumber > 0 && inputNumber < 2);
+        } catch (NullPointerException e) {
+            log.error("Null pointer!");
+//        } catch (IOException e) {
+//            log.error("File is not found!");
+        }
+    }
+
     public static void main(String[] args) {
-        // какая-то логика
-        log.info("Это сообщение info!");
-        log.debug("Это сообщение debug!");
-        log.error("Это сообщение error!");
-        log.warn("Это сообщение warn!");
+        chooseAndRun();
     }
 }
 

@@ -17,15 +17,15 @@ import org.apache.log4j.Logger;
 import java.io.File;
 import java.util.Scanner;
 import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.util.InputMismatchException;
 
 public class FillTravelCollection {
 
     private static final Logger log = Logger.getLogger(FillTravelCollection.class);
 
-    public static void fillTravelCollection(File file, TravelCollection oneTravel) {
+    public FillTravelCollection(File file) {
         Scanner scanner = null;
+        TravelCollection oneTravel = null;
+
         try {
             scanner = new Scanner(file);
             scanner.useDelimiter(" ");
@@ -34,7 +34,7 @@ public class FillTravelCollection {
                 String travel = scanner.next();
                 String transport = scanner.next();
                 String catering = scanner.next();
-                int    duration = scanner.nextInt();
+                int duration = scanner.nextInt();
                 String departure = scanner.next();
                 String destination = scanner.next();
 
@@ -60,7 +60,7 @@ public class FillTravelCollection {
                                             departure, destination, doesStops));
                                     log.info("One item 'CruiseTravel' was added");
                                     break;
-                                case  BY_PLANE:
+                                case BY_PLANE:
                                     int numberOfTransfers = scanner.nextInt();
                                     double flightDuration = scanner.nextDouble();
                                     oneTravel.addTravel(new AirTravel(travel, transport, catering, duration, departure,
@@ -76,11 +76,11 @@ public class FillTravelCollection {
                     }
                 }
             }
+        } catch (NullPointerException e) {
+            log.error("Ho-ho-ho! Null pointer exception is thrown!");
+            e.printStackTrace();
         } catch (FileNotFoundException e) {
             log.error("File is not found. Check if the file exists.");
-            e.printStackTrace();
-        } catch (IOException e) {
-            log.error("File could not be opened.");
             e.printStackTrace();
         } catch (Exception e) {
             log.error("Something have been gone in a wrong way!");
