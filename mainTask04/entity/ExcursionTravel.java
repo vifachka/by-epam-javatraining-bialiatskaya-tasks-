@@ -20,14 +20,10 @@ public class ExcursionTravel extends Travel{
         this.quantityOfCities = quantityOfCities;
     }
 
+    // to remake
     @Override
     public boolean equals(Object obj) {
         return super.equals(obj);
-    }
-
-    @Override
-    public int hashCode() {
-        return 1000;
     }
 
     // to remake

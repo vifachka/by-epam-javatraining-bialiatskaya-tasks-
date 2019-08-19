@@ -8,6 +8,8 @@
  */
 package by.epam.javatraining.bialiatskaya.tasks.mainTask04.entity;
 
+import by.epam.javatraining.bialiatskaya.tasks.mainTask04.enums.*;
+
 import java.util.Objects;
 
 abstract public class Travel {
@@ -75,28 +77,30 @@ abstract public class Travel {
         this.destination = destination;
     }
 
-    // to remake
     @Override
     public boolean equals(Object obj) {
         return super.equals(obj);
     }
 
-    // to remake
     @Override
     public int hashCode() {
-        return 1000;
+        return TravelType.valueOf(travel).ordinal() * 1_000_000 +
+                TransportType.valueOf(transport).ordinal() * 100_000+
+                CateringType.valueOf(catering).ordinal() * 10_000+
+                DeparturePoint.valueOf(departure).ordinal() * 1000 +
+                DestinationPoint.valueOf(destination).ordinal() * 100 +
+                duration;
     }
 
-    // to remake
     @Override
     public String toString() {
-        return "Travel{" +"";
-//                "travel='" + travel + '\'' +
-//                ", transport='" + transport + '\'' +
-//                ", catering='" + catering + '\'' +
-//                ", duration=" + duration +
-//                ", departure='" + departure + '\'' +
-//                ", destination='" + destination + '\'' +
-//                '}';
+        return "Travel{" +
+                "travel='" + travel + '\'' +
+                ", transport='" + transport + '\'' +
+                ", catering='" + catering + '\'' +
+                ", duration=" + duration +
+                ", departure='" + departure + '\'' +
+                ", destination='" + destination + '\'' +
+                '}';
     }
 }

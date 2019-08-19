@@ -1,6 +1,6 @@
 /**
  * EPAM JavaTraining-Intro. Task 4.
- * Excurtions
+ * Travels for medical purposes
  *
  * @author Natallia Bialiatskaya
  * @version 1.0

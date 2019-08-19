@@ -1,3 +1,11 @@
+/**
+ * EPAM JavaTraining-Intro. Task 4.
+ * main class - dream to do it interactive
+ *
+ * @author Natallia Bialiatskaya
+ * @version 1.0
+ * @since 07.08.2019
+ */
 package by.epam.javatraining.bialiatskaya.tasks.mainTask04;
 
 import org.apache.log4j.Logger;
