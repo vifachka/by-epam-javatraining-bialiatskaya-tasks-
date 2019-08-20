@@ -9,6 +9,7 @@
 package by.epam.javatraining.bialiatskaya.tasks.mainTask04.enums;
 
 public enum DestinationPoint {
+    MENSK       ("Mensk"),
     PORTO       ("Porto"),
     MILAN       ("Milan"),
     BARSELONA   ("Barselona"),

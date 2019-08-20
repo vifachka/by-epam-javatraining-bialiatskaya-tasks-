@@ -17,6 +17,7 @@ import java.util.Scanner;
 public class MainTask04 {
 
     private static final Logger log = Logger.getLogger(MainTask04.class);
+    public static final String FILE_PATH = "c:\\Users\\user\\IdeaProjects\\Training\\src\\by\\epam\\javatraining\\bialiatskaya\\tasks\\mainTask04\\DataGood.txt";
 
     private static void chooseAndRun() {
         Scanner reader = new Scanner(System.in).useDelimiter("\n");
@@ -31,12 +32,12 @@ public class MainTask04 {
 
                 switch (inputNumber) {
                     case 1: {
-                        File file = new File("c:\\Users\\user\\IdeaProjects\\Training\\src\\by\\epam\\javatraining\\bialiatskaya\\tasks\\mainTask04\\Data.txt");
+                        File file = new File(FILE_PATH);
                         FillTravelCollection fillTravelCollection = new FillTravelCollection(file);
                         break;
                     }
                     case 0: {
-                        System.out.println("You are welcome, bye!");
+                        System.out.println("We were glad to see you, come again! Bye!");
                         break;
                     }
                     default: {
@@ -49,6 +50,8 @@ public class MainTask04 {
             log.error("Null pointer!");
 //        } catch (IOException e) {
 //            log.error("File is not found!");
+        } finally {
+            reader.close();
         }
     }
 

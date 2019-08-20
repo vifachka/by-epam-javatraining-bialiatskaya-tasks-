@@ -17,8 +17,8 @@ public class TravelValidator {
 
     private static final Logger log = Logger.getLogger(TravelValidator.class);
 
-    private static boolean catchException(String name, Exception e) {
-        log.error("Argument for argument '" + name + "' is of wrong type.");
+    private static boolean catchException(String argument, String name, Exception e) {
+        log.error("Argument '" + argument + "' for enum '" + name + "' is of wrong type.");
         e.printStackTrace();
         return false;
     }
@@ -29,15 +29,15 @@ public class TravelValidator {
 
         try {
             TravelType.valueOf(travel);
-        } catch (IllegalArgumentException e) { isTravelOk = catchException("travel", e); }
+        } catch (IllegalArgumentException e) { isTravelOk = catchException(travel, "travel", e); }
 
         try {
             TransportType.valueOf(transport);
-        } catch (IllegalArgumentException e) { isTravelOk = catchException("transport", e); }
+        } catch (IllegalArgumentException e) { isTravelOk = catchException(transport, "transport", e); }
 
         try {
             CateringType.valueOf(catering);
-        } catch (IllegalArgumentException e) { isTravelOk = catchException("catering", e); }
+        } catch (IllegalArgumentException e) { isTravelOk = catchException(catering, "catering", e); }
 
         try {
             if (duration < 1 || duration > 60)
@@ -46,11 +46,11 @@ public class TravelValidator {
 
         try {
             DeparturePoint.valueOf(departure);
-        } catch (IllegalArgumentException e) { isTravelOk = catchException("departure point", e); }
+        } catch (IllegalArgumentException e) { isTravelOk = catchException(departure, "departure point", e); }
 
         try {
             DestinationPoint.valueOf(destination);
-        } catch (IllegalArgumentException e) { isTravelOk = catchException("destination point", e); }
+        } catch (IllegalArgumentException e) { isTravelOk = catchException(destination, "destination point", e); }
 
         return isTravelOk;
     }
