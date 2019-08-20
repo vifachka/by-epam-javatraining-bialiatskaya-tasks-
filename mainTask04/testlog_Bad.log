@@ -1,0 +1,3 @@
+2019-08-20 19:20:26 actions.FillTravelCollection [main] INFO - One item 'ExcursionTravel' was added
+2019-08-20 19:20:26 actions.FillTravelCollection [main] ERROR - Exception during filling. Something have been gone in a wrong way!
+2019-08-20 19:20:26 actions.FillTravelCollection [main] INFO - Collection is filled up. You can start the selection of the tour.
