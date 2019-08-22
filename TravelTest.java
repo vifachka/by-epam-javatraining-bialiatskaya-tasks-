@@ -8,6 +8,7 @@
  */
 package by.epam.javatraining.bialiatskaya.tests.mainTask04;
 
+import by.epam.javatraining.bialiatskaya.tasks.mainTask04.exceptions.DurationException;
 import by.epam.javatraining.bialiatskaya.tasks.mainTask04.validation.TravelValidator;
 import org.junit.Test;
 
@@ -68,7 +69,7 @@ public class TravelTest {
     }
 
     @Test   // bad duration
-    public void createBadDuration() {
+    public void createBadDuration() throws DurationException {
         boolean actual = TravelValidator.isTravel(travelGood, transportBad, cateringGood, durationBad,
                 departureGood, destinationGood);
         boolean unexpected = true;
@@ -92,14 +93,14 @@ public class TravelTest {
     }
 
     @Test   // good quantityOfCities
-    public void createGoodQuantityOfCities() {
+    public void createGoodQuantityOfCities()  throws DurationException{
         boolean actual = TravelValidator.isExceptionInt(quantityOfCitiesGood, "quantityOfCities",
                 CITIES_FROM, CITIES_TO);
         boolean expected = false;
         assertEquals(expected, actual);
     }
     @Test   // bad quantityOfCities
-    public void createBadQuantityOfCities() {
+    public void createBadQuantityOfCities()  throws DurationException{
         boolean actual = TravelValidator.isExceptionInt(quantityOfCitiesBad, "quantityOfCities",
                 CITIES_FROM, CITIES_TO);
         boolean unexpected = false;
