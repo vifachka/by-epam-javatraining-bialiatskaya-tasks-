@@ -9,29 +9,41 @@
 package by.epam.javatraining.bialiatskaya.tasks.mainTask04.actions;
 
 import by.epam.javatraining.bialiatskaya.tasks.mainTask04.entity.*;
-import by.epam.javatraining.bialiatskaya.tasks.mainTask04.enums.TransportType;
-import by.epam.javatraining.bialiatskaya.tasks.mainTask04.enums.TravelType;
+import by.epam.javatraining.bialiatskaya.tasks.mainTask04.enums.*;
 import by.epam.javatraining.bialiatskaya.tasks.mainTask04.validation.TravelValidator;
 import org.apache.log4j.Logger;
 
 import java.io.File;
 import java.util.Scanner;
 import java.io.FileNotFoundException;
-import java.util.regex.Pattern;
 
 public class FillTravelCollection {
 
     private static final Logger log = Logger.getLogger(FillTravelCollection.class);
+    private static final int CITIES_FROM = 0;
+    private static final int CITIES_TO = 30;
 
-    public FillTravelCollection(File file) {
-        Scanner scanner = null;
-        TravelCollection oneTravel = null;
+    private Scanner scanner;
+    private TravelCollection oneTravel;
+    private File file;
+    private int counter;
 
+    public FillTravelCollection(File file, TravelCollection oneTravel) {
+
+        this.oneTravel = oneTravel;
+        this.file = file;
+
+    }
+
+    public void fill() {
         try {
             scanner = new Scanner(file);
+            TravelValidator travelValidator = new TravelValidator();
+            counter = 0;
 //            scanner.useDelimiter(" ");
 
             while (scanner.hasNext()) {
+
                 String travel = scanner.next();
                 String transport = scanner.next();
                 String catering = scanner.next();
@@ -39,55 +51,41 @@ public class FillTravelCollection {
                 String departure = scanner.next();
                 String destination = scanner.next();
 
-                if (TravelValidator.isTravel(travel, transport, catering, duration, departure, destination)) {
-                    oneTravel = new TravelCollection();
+                if (travelValidator.isTravel(travel, transport, catering, duration, departure, destination)) {
+
+                    TravelType travelType = TravelType.valueOf(travel);
+                    TransportType transportType = TransportType.valueOf(transport);
+                    CateringType cateringType = CateringType.valueOf(catering);
+                    City departurePoint = City.valueOf(departure);
+                    City destinationPoint = City.valueOf(destination);
 
                     switch (TravelType.valueOf(travel)) {
                         case EXCURSION:
-                            oneTravel.addTravel(new GeneralTravel(travel, transport, catering, duration, departure,
-                                    destination));
-//                            scanner.useDelimiter("");
-//                            int quantityOfCities = scanner.nextInt();
-//                            oneTravel.addTravel(new ExcursionTravel(travel, transport, catering, duration, departure,
-//                                    destination, quantityOfCities));
-                            log.info("One item 'ExcursionTravel' was added");
+                            int quantityOfCities = 0;
+                            if (scanner.hasNext()) {
+                                quantityOfCities = scanner.nextInt();
+                                if (travelValidator.isExceptionInt(duration, "Duration period", CITIES_FROM, CITIES_TO))
+                                    quantityOfCities = 0;
+                            }
+
+                            oneTravel.addTravel(new ExcursionTravel(travelType, transportType, cateringType, duration,
+                                        departurePoint, destinationPoint, quantityOfCities));
                             break;
                         case MEDICAL_TOURIZM:
-                            oneTravel.addTravel(new GeneralTravel(travel, transport, catering, duration, departure,
-                                    destination));
-//                            String desease = scanner.next();
-//                            oneTravel.addTravel(new MedicalTravel(travel, transport, catering, duration, departure,
-//                                    destination, desease));
-                            log.info("One item 'MedicalTravel' was added");
+                            String desease = scanner.next();
+                            if (travelValidator.isExceptionString(desease))
+                                desease = "";
+                            oneTravel.addTravel(new MedicalTravel(travelType, transportType, cateringType, duration,
+                                    departurePoint, destinationPoint, desease));
                             break;
                         default:
-                            switch (TransportType.valueOf(transport)) {
-                                case BY_MARINE_LINER:
-                                    oneTravel.addTravel(new GeneralTravel(travel, transport, catering, duration, departure,
-                                            destination));
-//                                    boolean doesStops = scanner.hasNextBoolean();
-//                                    oneTravel.addTravel(new CruiseTravel(travel, transport, catering, duration,
-//                                            departure, destination, doesStops));
-                                    log.info("One item 'CruiseTravel' was added");
-                                    break;
-                                case BY_PLANE:
-                                    oneTravel.addTravel(new GeneralTravel(travel, transport, catering, duration, departure,
-                                            destination));
-//                                    int numberOfTransfers = scanner.nextInt();
-//                                    double flightDuration = scanner.nextDouble();
-//                                    oneTravel.addTravel(new AirTravel(travel, transport, catering, duration, departure,
-//                                            destination, numberOfTransfers, flightDuration));
-                                    log.info("One item 'AirTravel' was added");
-                                    break;
-                                default:
-                                    oneTravel.addTravel(new GeneralTravel(travel, transport, catering, duration, departure,
-                                            destination));
-//                                    oneTravel.addTravel(new GeneralTravel(travel, transport, catering, duration,
-//                                            departure, destination));
-                                    log.info("One item 'GeneralTravel' was added");
-                                    break;
-                            }
+                            oneTravel.addTravel(new GeneralTravel(travelType, transportType, cateringType, duration,
+                                    departurePoint, destinationPoint));
+                            break;
+
                     }
+                    counter++;
+                    log.info("One item '" + travelType + "' was added");
                 }
             }
         } catch (NullPointerException e) {
@@ -100,7 +98,12 @@ public class FillTravelCollection {
             log.error("Exception during filling. Something have been gone in a wrong way!");
             e.printStackTrace();
         } finally {
-            log.info("Collection is filled up. You can start the selection of the tour.");
+            if (counter > 0) {
+                log.info("Collection is filled up and contains " + counter + " elements. " +
+                        "Now you can select your tour.");
+            } else {
+                log.info("Collection is NOT filled up! Check your file and try again.");
+            }
             scanner.close();
         }
     }
