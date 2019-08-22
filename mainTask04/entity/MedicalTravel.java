@@ -8,13 +8,28 @@
  */
 package by.epam.javatraining.bialiatskaya.tasks.mainTask04.entity;
 
-public class MedicalTravel extends Travel{
-    private String desease = "";
+import by.epam.javatraining.bialiatskaya.tasks.mainTask04.enums.*;
 
-    public MedicalTravel(String travel, String transport, String catering, int duration, String departure,
-                         String destination, String desease) {
+public class MedicalTravel extends Travel{
+
+    private String desease;
+
+    public MedicalTravel(TravelType travel, TransportType transport, CateringType catering, int duration,
+                         City departure, City destination, String desease) {
+
         super(travel, transport, catering, duration, departure, destination);
 
         this.desease = desease;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        return super.equals(obj);
+    }
+
+    @Override
+    public String toString() {
+        return super.toString() + '\'' +
+                ", desease='" + desease + ".";
     }
 }

@@ -1,6 +1,6 @@
 /**
  * EPAM JavaTraining-Intro. Task 4.
- * Excurtions
+ * Excurtions and cruises
  *
  * @author Natallia Bialiatskaya
  * @version 1.0
@@ -8,34 +8,27 @@
  */
 package by.epam.javatraining.bialiatskaya.tasks.mainTask04.entity;
 
-import by.epam.javatraining.bialiatskaya.tasks.mainTask04.entity.Travel;
+import by.epam.javatraining.bialiatskaya.tasks.mainTask04.enums.*;
 
 public class ExcursionTravel extends Travel{
-    private int quantityOfCities = 0;
+    private int quantityOfCities;
 
-    public ExcursionTravel(String travel, String transport, String catering, int duration, String departure,
-                           String destination, int quantityOfCities) {
+    public ExcursionTravel(TravelType travel, TransportType transport, CateringType catering, int duration,
+                           City departure, City destination, int quantityOfCities) {
+
         super(travel, transport, catering, duration, departure, destination);
 
         this.quantityOfCities = quantityOfCities;
     }
 
-    // to remake
     @Override
     public boolean equals(Object obj) {
         return super.equals(obj);
     }
 
-    // to remake
     @Override
     public String toString() {
-        return "Travel{" +"";
-//                "travel='" + travel + '\'' +
-//                ", transport='" + transport + '\'' +
-//                ", catering='" + catering + '\'' +
-//                ", duration=" + duration +
-//                ", departure='" + departure + '\'' +
-//                ", destination='" + destination + '\'' +
-//                '}';
+        return super.toString() + '\'' +
+                ", quantityOfCities='" + quantityOfCities + ".";
     }
 }

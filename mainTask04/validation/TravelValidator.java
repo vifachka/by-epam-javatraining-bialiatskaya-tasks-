@@ -17,13 +17,46 @@ public class TravelValidator {
 
     private static final Logger log = Logger.getLogger(TravelValidator.class);
 
-    private static boolean catchException(String argument, String name, Exception e) {
+    private static final int DURATION_FROM = 1;
+    private static final int DURATION_TO = 60;
+
+    public TravelValidator() {}
+
+    private boolean catchException(String argument, String name, Exception e) {
         log.error("Argument '" + argument + "' for enum '" + name + "' is of wrong type.");
         e.printStackTrace();
         return false;
     }
 
-    public static boolean isTravel(String travel, String transport, String catering, int duration, String departure,
+    public boolean isExceptionString(String strValue) {
+        boolean isException = false;
+
+        try {
+            String.valueOf(strValue);
+        } catch (IllegalArgumentException e) {
+            isException = true;
+            log.error("Argument '" + strValue + "' is of wrong type.");
+            e.printStackTrace();
+        }
+        return isException;
+    }
+
+    public boolean isExceptionInt(int quantity, String mes, int num1, int num2){
+        boolean isException = false;
+
+        try {
+            if (quantity < num1 || quantity > num2) {
+                isException = true;
+                throw new DurationException();
+            }
+        } catch (DurationException e) {
+            e.printStackTrace();
+        }
+
+        return isException;
+    }
+
+    public boolean isTravel(String travel, String transport, String catering, int duration, String departure,
                                    String destination){
         boolean isTravelOk = true;
 
@@ -39,17 +72,15 @@ public class TravelValidator {
             CateringType.valueOf(catering);
         } catch (IllegalArgumentException e) { isTravelOk = catchException(catering, "catering", e); }
 
-        try {
-            if (duration < 1 || duration > 60)
-                throw new DurationException();
-        } catch (DurationException e) { isTravelOk = e.myOwnExceptionMsg(); }
+        if (isExceptionInt(duration, "Duration period", DURATION_FROM, DURATION_TO))
+          isTravelOk = false;
 
         try {
-            DeparturePoint.valueOf(departure);
+            City.valueOf(departure);
         } catch (IllegalArgumentException e) { isTravelOk = catchException(departure, "departure point", e); }
 
         try {
-            DestinationPoint.valueOf(destination);
+            City.valueOf(destination);
         } catch (IllegalArgumentException e) { isTravelOk = catchException(destination, "destination point", e); }
 
         return isTravelOk;

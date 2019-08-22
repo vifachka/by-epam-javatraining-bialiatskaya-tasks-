@@ -18,9 +18,8 @@ public class DurationException extends Exception {
         log.info("Exception is constructured: DurationException.");
     }
 
-    public boolean myOwnExceptionMsg() {
-        log.error("Duration period is out of bounds (1..60). DurationException is thrown.");
-        return false;
+    public void myOwnExceptionMsg(String mes, int num1, int num2) {
+        log.error(mes + " is out of bounds (" + num1 + ".." + num2 + "). DurationException is thrown.");
     }
 
 }

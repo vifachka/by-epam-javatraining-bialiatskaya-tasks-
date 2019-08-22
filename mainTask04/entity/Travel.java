@@ -10,17 +10,17 @@ package by.epam.javatraining.bialiatskaya.tasks.mainTask04.entity;
 
 import by.epam.javatraining.bialiatskaya.tasks.mainTask04.enums.*;
 
-import java.util.Objects;
-
 abstract public class Travel {
-    private String travel = "";
-    private String transport = "";
-    private String catering = "";
-    private int duration = 0;
-    private String departure = "";
-    private String destination = "";
 
-    public Travel(String travel, String transport, String catering, int duration, String departure, String destination){
+    private TravelType travel;
+    private TransportType transport;
+    private CateringType catering;
+    private int duration;
+    private City departure;
+    private City destination;
+
+    public Travel(TravelType travel, TransportType transport, CateringType catering, int duration,
+                  City departure, City destination){
         this.travel = travel;
         this.transport = transport;
         this.catering = catering;
@@ -29,27 +29,27 @@ abstract public class Travel {
         this.destination = destination;
     }
 
-    public String getTravel() {
+    public TravelType getTravel() {
         return travel;
     }
 
-    public void setTravel(String travel) {
+    public void setTravel(TravelType travel) {
         this.travel = travel;
     }
 
-    public String getTransport() {
+    public TransportType getTransport() {
         return transport;
     }
 
-    public void setTransport(String transport) {
+    public void setTransport(TransportType transport) {
         this.transport = transport;
     }
 
-    public String getCatering() {
+    public CateringType getCatering() {
         return catering;
     }
 
-    public void setCatering(String catering) {
+    public void setCatering(CateringType catering) {
         this.catering = catering;
     }
 
@@ -61,19 +61,19 @@ abstract public class Travel {
         this.duration = duration;
     }
 
-    public String getDeparture() {
+    public City getDeparture() {
         return departure;
     }
 
-    public void setDeparture(String departure) {
+    public void setDeparture(City departure) {
         this.departure = departure;
     }
 
-    public String getDestination() {
+    public City getDestination() {
         return destination;
     }
 
-    public void setDestination(String destination) {
+    public void setDestination(City destination) {
         this.destination = destination;
     }
 
@@ -84,23 +84,18 @@ abstract public class Travel {
 
     @Override
     public int hashCode() {
-        return TravelType.valueOf(travel).ordinal() * 1_000_000 +
-                TransportType.valueOf(transport).ordinal() * 100_000+
-                CateringType.valueOf(catering).ordinal() * 10_000+
-                DeparturePoint.valueOf(departure).ordinal() * 1000 +
-                DestinationPoint.valueOf(destination).ordinal() * 100 +
-                duration;
+        int hash = travel.ordinal() * 1_000_000 + transport.ordinal() * 100_000 + catering.ordinal() * 10_000 +
+                departure.ordinal() * 1000 + destination.ordinal() * 100 + duration;
+        return hash;
     }
 
     @Override
     public String toString() {
-        return "Travel{" +
-                "travel='" + travel + '\'' +
+        return getTravel().toString() + " " + '\'' +
                 ", transport='" + transport + '\'' +
                 ", catering='" + catering + '\'' +
                 ", duration=" + duration +
                 ", departure='" + departure + '\'' +
-                ", destination='" + destination + '\'' +
-                '}';
+                ", destination='" + destination;
     }
 }

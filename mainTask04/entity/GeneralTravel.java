@@ -8,11 +8,13 @@
  */
 package by.epam.javatraining.bialiatskaya.tasks.mainTask04.entity;
 
+import by.epam.javatraining.bialiatskaya.tasks.mainTask04.enums.*;
+
 public class GeneralTravel extends Travel {
 
-    public GeneralTravel(String travel, String transport, String catering, int duration, String departure,
-                     String destination) {
-        super(travel, transport, catering, duration, departure, destination);
+    public GeneralTravel(TravelType travel, TransportType transport, CateringType catering, int duration,
+                         City departure, City destination) {
 
+        super(travel, transport, catering, duration, departure, destination);
     }
 }
